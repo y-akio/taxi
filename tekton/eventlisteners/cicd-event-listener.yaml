@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: cicd-event-listener
+spec:
+  serviceAccountName: demo-sa
+  triggers:
+    - name: dev-ci-build-from-pr
+      interceptor:
+        header:
+        - name: Pullrequest-Action
+          value: opened
+        - name:  Pullrequest-Repo
+          value: bigkevmcd/taxi
+        objectRef:
+          kind: Service
+          name: demo-interceptor
+          apiVersion: v1
+          namespace: cicd-environment
+      binding:
+        name: build-from-pr-binding
+      template:
+        name: build-from-pr-template

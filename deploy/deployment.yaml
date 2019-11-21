@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exercise1
+  labels:
+    app.kubernetes.io/name: exercise1
+    app.kubernetes.io/version: 0.0.1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: exercise1
+      app.kubernetes.io/version: 0.0.1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: exercise1
+        app.kubernetes.io/version: 0.0.1
+    spec:
+      containers:
+      - name: exercise1
+        image: quay.io/kmcdermo/hello-go
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+        - name: kmcdermo-pull-secret
