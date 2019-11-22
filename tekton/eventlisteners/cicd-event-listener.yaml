@@ -3,6 +3,7 @@ kind: EventListener
 metadata:
   name: cicd-event-listener
 spec:
+  namespace: cicd-environment
   serviceAccountName: demo-sa
   triggers:
     - name: dev-ci-build-from-pr
