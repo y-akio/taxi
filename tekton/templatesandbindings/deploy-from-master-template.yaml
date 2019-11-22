@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: build-from-pr-template
+  name: deploy-from-branch-template
 spec:
   params:
   - name: gitrevision
@@ -18,7 +18,7 @@ spec:
       type: git
       params:
       - name: revision
-        value: $(params.gitrevision)
+        value: $(params.gitref)
       - name: url
         value: $(params.gitrepositoryurl)
   - apiVersion: tekton.dev/v1alpha1
@@ -29,15 +29,15 @@ spec:
       type: image
       params:
         - name: url
-          value: quay.io/kmcdermo/hello-go:$(params.gitrevision)
+          value: quay.io/kmcdermo/taxi:$(params.gitsha)
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      name: build-pipeline-run-$(uid)
+      name: ci-pipeline-run-$(uid)
     spec:
       serviceAccountName: demo-sa
       pipelineRef:
-        name: build-pipeline
+        name: cd-pipeline
       resources:
         - name: source-repo
           resourceRef:

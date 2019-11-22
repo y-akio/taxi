@@ -1,10 +1,12 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: build-from-pr-binding
+  name: deploy-from-master-binding
 spec:
   params:
-  - name: gitrevision
+  - name: gitref
+    value: $(body.interceptor.ref)
+  - name: gitsha
     value: $(body.pull_request.head.sha)
   - name: gitrepositoryurl
-    value: $(body.repository.git_url)
+    value: $(body.repository.clone_url)
