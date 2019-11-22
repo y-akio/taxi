@@ -33,11 +33,11 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      name: build-pipeline-run-$(uid)
+      name: ci-pipeline-run-$(uid)
     spec:
       serviceAccountName: demo-sa
       pipelineRef:
-        name: build-pipeline
+        name: ci-pipeline
       resources:
         - name: source-repo
           resourceRef:
