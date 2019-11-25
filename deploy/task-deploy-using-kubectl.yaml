@@ -42,7 +42,6 @@ spec:
       command: ["kubectl"]
       args:
         - "apply"
-        - "--server-dry-run=$(inputs.params.DRYRUN)"
         - "-n"
         - "$(inputs.params.NAMESPACE)"
         - "-k"
