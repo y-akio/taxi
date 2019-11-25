@@ -13,6 +13,7 @@ spec:
       - name: PATHTODEPLOYMENT
         type: string
         description: Path to the manifest to apply
+        default: deploy
       - name: NAMESPACE
         type: string
         description: Namespace to deploy into
