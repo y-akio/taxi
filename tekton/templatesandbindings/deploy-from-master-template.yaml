@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: deploy-from-branch-template
+  name: deploy-from-master-template
 spec:
   params:
   - name: gitrevision
@@ -33,7 +33,7 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      name: ci-pipeline-run-$(uid)
+      name: cd-pipeline-run-$(uid)
     spec:
       serviceAccountName: demo-sa
       pipelineRef:

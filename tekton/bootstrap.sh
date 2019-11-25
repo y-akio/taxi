@@ -6,6 +6,7 @@ oc new-project dev-environment
 oc new-project cicd-environment
 oc adm policy add-scc-to-user privileged -z demo-sa
 oc adm policy add-role-to-user edit -z demo-sa
+k create rolebinding demo-sa-admin-dev --clusterrole=admin --serviceaccount=cicd-environment:demo-sa --namespace=dev-environment
 oc apply -f serviceaccount
 oc apply -f templatesandbindings
 oc apply -f interceptor
