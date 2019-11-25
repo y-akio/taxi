@@ -20,7 +20,7 @@ spec:
       - name: DRYRUN
         type: string
         description: If true run a server-side dryrun.
-        default: false
+        default: "false"
       - name: YAMLPATHTOIMAGE
         type: string
         description:
