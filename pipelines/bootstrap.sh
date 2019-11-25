@@ -12,7 +12,8 @@ oc apply -f serviceaccount
 oc apply -f templatesandbindings
 oc apply -f interceptor
 oc apply -f eventlisteners
-oc apply -f ../build
+oc apply -f ci
+oc apply -f cd
 echo "the following commands will need to be executed when the containers are all running"
 echo "oc port-forward svc/el-cicd-event-listener 8080"
 echo "./demo.sh"
