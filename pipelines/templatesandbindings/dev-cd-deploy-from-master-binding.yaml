@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: deploy-from-master-binding
+  name: dev-cd-deploy-from-master-binding
 spec:
   params:
   - name: gitref

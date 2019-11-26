@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: cd-pipeline
+  name: dev-cd-pipeline
 spec:
   resources:
     - name: source-repo
@@ -20,7 +20,7 @@ spec:
             resource: runtime-image
       params:
       - name: PATHTODEPLOYMENT
-        value: deploy
+        value: deploy/templates
       - name: YAMLPATHTOIMAGE
         value: "spec.template.spec.containers[0].image"
       - name: NAMESPACE

@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: build-from-pr-template
+  name: stage-ci-dryrun-from-pr-template
 spec:
   params:
   - name: gitrevision
@@ -22,26 +22,14 @@ spec:
       - name: url
         value: $(params.gitrepositoryurl)
   - apiVersion: tekton.dev/v1alpha1
-    kind: PipelineResource
-    metadata:
-      name: image-$(uid)
-    spec:
-      type: image
-      params:
-        - name: url
-          value: quay.io/kmcdermo/taxi:$(params.gitsha)
-  - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      name: ci-pipeline-run-$(uid)
+      name: stage-ci-pipeline-run-$(uid)
     spec:
       serviceAccountName: demo-sa
       pipelineRef:
-        name: ci-pipeline
+        name: stage-ci-pipeline
       resources:
         - name: source-repo
           resourceRef:
             name: git-source-$(uid)
-        - name: runtime-image
-          resourceRef:
-            name: image-$(uid)

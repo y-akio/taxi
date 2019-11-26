@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: deploy-from-master-template
+  name: stage-cd-deploy-from-push-template
 spec:
   params:
   - name: gitrevision
@@ -22,26 +22,14 @@ spec:
       - name: url
         value: $(params.gitrepositoryurl)
   - apiVersion: tekton.dev/v1alpha1
-    kind: PipelineResource
-    metadata:
-      name: image-$(uid)
-    spec:
-      type: image
-      params:
-        - name: url
-          value: quay.io/kmcdermo/taxi:$(params.gitsha)
-  - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      name: cd-pipeline-run-$(uid)
+      name: stage-cd-pipeline-run-$(uid)
     spec:
       serviceAccountName: demo-sa
       pipelineRef:
-        name: cd-pipeline
+        name: stage-cd-pipeline
       resources:
         - name: source-repo
           resourceRef:
             name: git-source-$(uid)
-        - name: runtime-image
-          resourceRef:
-            name: image-$(uid)

@@ -1,14 +1,12 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
-  name: deploy-using-kubectl
+  name: deploy-from-source
 spec:
   inputs:
     resources:
       - name: source
         type: git
-      - name: image
-        type: image
     params:
       - name: PATHTODEPLOYMENT
         type: string
@@ -21,27 +19,14 @@ spec:
         type: string
         description: If true run a server-side dryrun.
         default: "false"
-      - name: YAMLPATHTOIMAGE
-        type: string
-        description:
-          The path to the image to replace in the yaml manifest (arg to yq)
   steps:
-    - name: replace-image
-      image: mikefarah/yq
-      workingDir: /workspace/source
-      command: ["yq"]
-      args:
-        - "w"
-        - "-i"
-        - "$(inputs.params.PATHTODEPLOYMENT)/deployment.yaml"
-        - "$(inputs.params.YAMLPATHTOIMAGE)"
-        - "$(inputs.resources.image.url)"
     - name: run-kubectl
-      image: lachlanevenson/k8s-kubectl
+      image: quay.io/kmcdermo/k8s-kubectl:latest
       workingDir: /workspace/source
       command: ["kubectl"]
       args:
         - "apply"
+        - "--dry-run=$(inputs.params.DRYRUN)"
         - "-n"
         - "$(inputs.params.NAMESPACE)"
         - "-k"
