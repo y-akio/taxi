@@ -9,7 +9,7 @@ spec:
   tasks:
     - name: apply-source
       taskRef:
-        name: execute-gitops-task
+        name: deploy-from-source
       resources:
         inputs:
           - name: source
