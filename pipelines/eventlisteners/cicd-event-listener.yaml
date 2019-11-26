@@ -19,10 +19,10 @@ spec:
           apiVersion: v1
           namespace: cicd-environment
       binding:
-        name: build-from-pr-binding
+        name: dev-ci-build-from-pr-binding
       template:
-        name: build-from-pr-template
-    - name: dev-ci-build-from-pr
+        name: dev-ci-build-from-pr-template
+    - name: dev-cd-deploy-from-master
       interceptor:
         header:
         - name: Push-Ref
@@ -35,6 +35,22 @@ spec:
           apiVersion: v1
           namespace: cicd-environment
       binding:
-        name: deploy-from-master-binding
+        name: dev-cd-deploy-from-master-binding
       template:
-        name: deploy-from-master-template
+        name: dev-cd-deploy-from-master-template
+    - name: stage-ci-dryrun-from-pr
+      interceptor:
+        header:
+        - name: Pullrequest-Action
+          value: opened
+        - name:  Pullrequest-Repo
+          value: bigkevmcd/taxi-stage-config
+        objectRef:
+          kind: Service
+          name: demo-interceptor
+          apiVersion: v1
+          namespace: cicd-environment
+      binding:
+        name: stage-ci-dryrun-from-pr-binding
+      template:
+        name: stage-ci-dryrun-from-pr-template

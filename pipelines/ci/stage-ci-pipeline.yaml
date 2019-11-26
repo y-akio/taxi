@@ -1,21 +1,21 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: ci-pipeline
+  name: stage-ci-pipeline
 spec:
   resources:
     - name: source-repo
       type: git
-    - name: runtime-image
-      type: image
   tasks:
-    - name: build-image
+    - name: apply-source
       taskRef:
-        name: buildah-task
+        name: execute-gitops-task
       resources:
         inputs:
           - name: source
             resource: source-repo
-        outputs:
-          - name: image
-            resource: runtime-image
+      params:
+      - name: NAMESPACE
+        value: stage-environment
+        name: DRYRUN
+        value: "true"

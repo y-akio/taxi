@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: build-from-pr-binding
+  name: dev-ci-build-from-pr-binding
 spec:
   params:
   - name: gitref

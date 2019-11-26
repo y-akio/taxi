@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: cd-pipeline
+  name: dev-ci-pipeline
 spec:
   resources:
     - name: source-repo
@@ -9,19 +9,13 @@ spec:
     - name: runtime-image
       type: image
   tasks:
-    - name: deploy-image
+    - name: build-image
       taskRef:
-        name: deploy-using-kubectl
+        name: buildah-task
       resources:
         inputs:
           - name: source
             resource: source-repo
+        outputs:
           - name: image
             resource: runtime-image
-      params:
-      - name: PATHTODEPLOYMENT
-        value: deploy
-      - name: YAMLPATHTOIMAGE
-        value: "spec.template.spec.containers[0].image"
-      - name: NAMESPACE
-        value: dev-environment
