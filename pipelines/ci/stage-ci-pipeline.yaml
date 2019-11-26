@@ -9,7 +9,7 @@ spec:
   tasks:
     - name: apply-source
       taskRef:
-        name: execute-gitops-task
+        name: deploy-from-source
       resources:
         inputs:
           - name: source
@@ -17,5 +17,5 @@ spec:
       params:
       - name: NAMESPACE
         value: stage-environment
-        name: DRYRUN
+      - name: DRYRUN
         value: "true"

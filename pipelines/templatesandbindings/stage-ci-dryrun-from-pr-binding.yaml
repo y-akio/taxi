@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: stage-ci-dry-run-from-pr-binding
+  name: stage-ci-dryrun-from-pr-binding
 spec:
   params:
   - name: gitref
