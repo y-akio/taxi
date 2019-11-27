@@ -4,8 +4,8 @@ oc apply -f https://github.com/tektoncd/triggers/releases/download/v0.1.0/releas
 oc new-project dev-environment
 oc new-project stage-environment
 oc new-project cicd-environment
-oc apply -f ~/quayio-secret.yaml
-oc apply -f ~/regcred.yaml
+oc apply -f ~/demo-quayio-secret.yaml
+oc create secret generic regcred --from-file=.dockerconfigjson=$HOME/demo-auth.json --type=kubernetes.io/dockerconfigjson
 oc apply -f serviceaccount
 oc adm policy add-scc-to-user privileged -z demo-sa
 oc adm policy add-role-to-user edit -z demo-sa
@@ -16,6 +16,4 @@ oc apply -f interceptor
 oc apply -f ci
 oc apply -f cd
 oc apply -f eventlisteners
-echo "the following commands will need to be executed when the containers are all running"
-echo "oc port-forward svc/el-cicd-event-listener 8080"
-echo "tkn pipelinerun list"
+oc apply -f routes
