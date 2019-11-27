@@ -21,9 +21,16 @@ spec:
       - name: taxi
         image: quay.io/kmcdermo/taxi
         imagePullPolicy: Always
+        volumeMounts:
+        - name: web-files
+          mountPath: /usr/share/booktaxi
         ports:
         - name: http
           containerPort: 8080
           protocol: TCP
+      volumes:
+      - name: web-files
+        configMap:
+          name: www-files
       imagePullSecrets:
         - name: kmcdermo-pull-secret
