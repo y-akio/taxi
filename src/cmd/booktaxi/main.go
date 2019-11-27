@@ -21,6 +21,6 @@ func main() {
 	http.Handle("/", fs)
 
 	addr := fmt.Sprintf(":%d", *port)
-	log.Printf("version %s listening on %s\n", CommitSHA, addr)
+	log.Printf("version %s listening on %s\n", CommitSHA[:6], addr)
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
