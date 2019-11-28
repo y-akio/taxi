@@ -19,16 +19,6 @@ spec:
         outputs:
           - name: image
             resource: runtime-image
-    - name: build-image
-      taskRef:
-        name: buildah-task
-      resources:
-        inputs:
-          - name: source
-            resource: source-repo
-        outputs:
-          - name: image
-            resource: runtime-image
     - name: deploy-image
       taskRef:
         name: deploy-using-kubectl
