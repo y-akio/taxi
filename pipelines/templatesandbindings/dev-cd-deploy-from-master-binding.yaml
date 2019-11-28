@@ -7,6 +7,8 @@ spec:
   - name: gitref
     value: $(body.intercepted.ref)
   - name: gitsha
-    value: $(body.commits.0.id)
+    value: $(body.head_commit.id)
+  - name: shortsha
+    value: $(body.intercepted.short_sha)
   - name: gitrepositoryurl
     value: $(body.repository.clone_url)
