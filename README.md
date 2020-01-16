@@ -1,4 +1,4 @@
-# The Taxi Ap
+# The Taxi App
 
 ## About
 
