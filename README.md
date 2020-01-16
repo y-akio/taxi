@@ -4,7 +4,7 @@
 
 This repository contains the source code, deployment manifests and CI/CD pipelines for the taxi application.
 
-## Application Source code
+## Application Source code.
 
 The application source code resides in the `src` directory.
 
